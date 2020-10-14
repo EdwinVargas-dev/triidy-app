@@ -1,0 +1,11 @@
+<div class="card text-center" data-toggle="modal" data-target="#cardModal">
+    <div class="card-header">
+        <h5 class="card-title mb-0">{{dataShow.show.name}}</h5>
+    </div>
+    <div class="card-body p-0" *ngIf="dataShow.show.image.medium">
+        <img src="{{dataShow.show.image.medium}}" alt="" class="w-100">
+    </div>
+    <div class="card-footer text-muted">
+        <span class="badge badge-info mr-1" *ngFor="let genre of dataShow.show.genres">{{genre}}</span>
+    </div>
+</div>
