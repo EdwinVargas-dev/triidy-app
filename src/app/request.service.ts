@@ -11,7 +11,7 @@ export class RequestService {
   urlBySearch= "http://api.tvmaze.com/search/shows";
   urlByAll= "http://api.tvmaze.com/shows";
 
-  dataToSearchOfDetailShow: any;
+  detailShowAndCast: any;
 
   getShowsOfTv (paramToSearch: string) {
     let showsToSend = [];
@@ -32,18 +32,19 @@ export class RequestService {
   }
 
   getDetailOfShow (data) {
-    console.log(data)
-    var dataDetail = {}
+    var dataDetail = {
+      detail: {},
+      castList: []
+    }
     this.http.get(this.urlByAll + "/" + data.show.id).subscribe((show: any) => {
-      Object.assign(dataDetail, show)
+      Object.assign(dataDetail.detail, show)
+      dataDetail.castList = this.getCastShow(show.id)
     })
-    this.dataToSearchOfDetailShow = dataDetail
-    console.log(dataDetail)
+    this.detailShowAndCast = dataDetail
     return dataDetail
   }
 
   getCastShow (id) {
-    console.log(id)
     var dataCast = []
     this.http.get(this.urlByAll + "/" + id + "/cast").subscribe((cast: any) => {
       cast.forEach(element => {

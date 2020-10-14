@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { bottom } from '@popperjs/core';
 import { RequestService } from "../request.service";
 
 @Component({
@@ -8,11 +9,7 @@ import { RequestService } from "../request.service";
 })
 export class CardDetailComponent implements OnInit {
 
-  @Input("detailDataShow") showDetailSel;
-
-  dataToShow;
-  dataToCast;
-  imgLink = "";
+  @Input() showDetailSel: any;
 
   constructor(private req: RequestService) { }
 
@@ -20,21 +17,20 @@ export class CardDetailComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
-    this.dataToShow = changes.showDetailSel.currentValue
-    this.getCast(this.showDetailSel.id)
-    if(this.showDetailSel['image']) this.imgLink = this.showDetailSel.image.original
+    this.showDetailSel = {
+      detail: {
+        name: "",
+        image: { original: "" }
+      },
+      castList: []
+    }
 
-    console.log(this.showDetailSel)
+    if (changes.showDetailSel.currentValue['detail']) {
+      this.showDetailSel = changes.showDetailSel.currentValue
+    }
   }
 
   htmlEntities(str) {
     return String(str).replace(/<\/?[^>]+(>|$)/g, ' ');
   }
-
-  getCast(dataShowId){
-    this.dataToCast = this.req.getCastShow(dataShowId);
-    console.log(this.dataToCast)
-  }
-
 }

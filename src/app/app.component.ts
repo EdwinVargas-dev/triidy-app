@@ -18,5 +18,6 @@ export class AppComponent {
 
   getDataShow (showItem) {
     this.showDetailSelected = this.req.getDetailOfShow(showItem);
+    console.log(this.showDetailSelected)
   }
 }

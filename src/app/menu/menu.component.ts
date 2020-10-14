@@ -9,7 +9,6 @@ import { AppComponent } from "../app.component";
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  
   showsList: any;
   textToSearch: string;
 
